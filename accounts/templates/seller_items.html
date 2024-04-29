@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sell Item</title>
+    <title>Seller Items</title>
 </head>
 <body>
-    <h2>Sell Item</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+    <h2>Your Items for Sale</h2>
+    <ul>
+        {% for item in seller_items %}
+        <li>{{ item.name }} - Price: ${{ item.price }}</li>
+        <!-- Display other item details as needed -->
+        {% endfor %}
+    </ul>
+    <a href="{% url 'sell' %}">Sell Item</a>
 </body>
 </html>
