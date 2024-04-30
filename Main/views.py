@@ -1,14 +1,10 @@
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, update_session_auth_hash
 from .models import UserProfile, Item, Order
 from .forms import UserSignupForm, UpdateProfileForm, ChangePasswordForm, ItemForm
-from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 import datetime
@@ -134,23 +130,15 @@ def shop(request):
     )
 
 
-# @login_required
-# def product_detail(request, item_id):
-#     item = get_object_or_404(Item, pk=item_id)
-#     return render(request, "product_detail.html", {"item": item})
 @login_required
 def product_detail(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
     if request.method == "POST":
-        # Check if the item is available
         if item.status == "available":
-            # Create the order
             order = Order.objects.create(buyer=request.user, item=item)
             item.save()
-            # Redirect to a page indicating that the order was successful
             return HttpResponseRedirect(reverse("order_success", args=(order.id,)))
         else:
-            # Redirect to a page indicating that the item is not available
             return render(request, "item_not_available.html")
     else:
         return render(request, "product_detail.html", {"item": item})
@@ -165,7 +153,6 @@ def order(request, item_id):
 
 @login_required
 def received_orders(request):
-    # Retrieve orders associated with items sold by the current user
     received_orders = Order.objects.filter(item__seller=request.user)
     return render(request, "received_orders.html", {"orders": received_orders})
 
@@ -173,36 +160,28 @@ def received_orders(request):
 @login_required
 def accept_order(request, order_id):
     order = Order.objects.get(pk=order_id)
-    if (
-        order.item.seller == request.user
-    ):  # Ensure the current user is the seller of the item
+    if order.item.seller == request.user:
         order.status = "accepted"
         order.comment = request.POST.get("comment", "")
         order.save()
-        # Update item status to 'sold'
         order.item.status = "sold"
         order.item.bought_by = order.buyer.username
         order.item.save()
-        # Redirect to a page indicating that the order was accepted
         return render(request, "order_accepted.html", {"order": order})
     else:
-        # Redirect to a page indicating unauthorized access
         return render(request, "unauthorized_access.html")
 
 
 @login_required
 def decline_order(request, order_id):
     order = Order.objects.get(pk=order_id)
-    if (
-        order.item.seller == request.user
-    ):  # Ensure the current user is the seller of the item
+    if order.item.seller == request.user:
         order.status = "declined"
         order.comment = request.POST.get("comment", "")
         order.save()
-        # Redirect to a page indicating that the order was declined
+
         return render(request, "order_declined.html", {"order": order})
     else:
-        # Redirect to a page indicating unauthorized access
         return render(request, "unauthorized_access.html")
 
 
@@ -214,14 +193,12 @@ def order_success(request, order_id):
 
 @login_required
 def your_orders(request):
-    # Retrieve all orders associated with the logged-in user (the buyer)
     user_orders = Order.objects.filter(buyer=request.user)
     return render(request, "your_orders.html", {"user_orders": user_orders})
 
 
 @login_required
 def your_items(request):
-    # Retrieve all items associated with the logged-in user (the seller)
     seller_items = Item.objects.filter(seller=request.user)
     return render(request, "your_items.html", {"seller_items": seller_items})
 

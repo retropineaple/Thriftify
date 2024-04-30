@@ -24,9 +24,7 @@
             <a href="{% url 'product_detail' item.id %}">{{ item.name }}</a>
             <p>Price: {{ item.price }}</p>
             <p>Description: {{ item.description }}</p>
-            <!-- Add a button to toggle the form visibility -->
             <button onclick="toggleForm({{ item.id }})">Update</button>
-            <!-- Include the form for updating the item's details (initially hidden) -->
             <form id="update-form-{{ item.id }}" method="post" action="{% url 'update_item' item.id %}" style="display: none;">
                 {% csrf_token %}
                 <label for="name">Name:</label>
