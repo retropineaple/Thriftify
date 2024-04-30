@@ -1,0 +1,13 @@
+{% extends "master.html" %}
+
+
+{% block title %}
+    <title>Page Not Found</title>
+{% endblock %}
+
+
+{% block content %}
+    <h1>Ooops!</h1>
+    <h2>We couldn't find the page you were looking for!</h2>
+    <a href="{% url 'home' %}">Go to home</a>
+{% endblock %}

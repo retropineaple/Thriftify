@@ -1,0 +1,58 @@
+{% extends "master.html" %}
+
+
+{% block title %}
+    <title>Received Orders</title>
+{% endblock %}
+
+
+{% block content %}
+    <h1>Received Orders</h1>
+    <ul>
+    {% for order in orders %}
+    {% if order.status == "pending" and order.item.status == "available" %}
+        <li>
+            Order ID: {{ order.id }}, 
+            Buyer: {{ order.buyer.username }}, 
+            Item: {{ order.item.name }}
+            Status: {{ order.status }}
+            Item Availability: {{ order.item.status }}
+            <form method="post" action="{% url 'accept_order' order.id %}">
+                {% csrf_token %}
+                <p>Comment:</p>
+                <textarea name="comment" rows="4" cols="50"></textarea><br>
+                <button type="submit">Accept</button>
+            </form>
+            <form method="post" action="{% url 'decline_order' order.id %}">
+                {% csrf_token %}
+                <button type="submit">Decline</button>
+            </form>
+        </li>
+    {% elif order.status == "pending" and order.item.status == "sold" %}
+        <li>
+            Order ID: {{ order.id }}, 
+            Buyer: {{ order.buyer.username }}, 
+            Item: <a href="{% url 'product_detail' order.item.id %}">{{ order.item.name }}</a>
+            Status: {{ order.status }}
+            Item Availability: {{ order.item.status }}
+            <form method="post" action="{% url 'decline_order' order.id %}">
+                {% csrf_token %}
+                <p>Comment:</p>
+                <textarea name="comment" rows="4" cols="50"></textarea><br>
+                <button type="submit">Decline</button>
+            </form>
+        </li>
+    {% else %}
+        <li>
+            Order ID: {{ order.id }}, 
+            Buyer: {{ order.buyer.username }}, 
+            Item: <a href="{% url 'product_detail' order.item.id %}">{{ order.item.name }}</a>
+            Status: {{ order.status }}
+            Item Availability: {{ order.item.status }}
+        </li>
+    {% endif %}
+    {% empty %}
+        <li>No received orders.</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

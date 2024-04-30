@@ -1,0 +1,42 @@
+{% extends "master.html" %}
+
+
+{% block title %}
+    <title>Shop</title>
+{% endblock %}
+
+
+{% block content %}
+    <h2>Shop</h2>
+    {% if item.status == "available" %}
+    <div>
+        <h3>{{ item.name }}</h3>
+        <p>Price: ₹{{ item.price }}</p>
+        <p>Sold by: <a href="{% url 'user_info' user.username %}">{{ user.username }}</a></p>
+        <img src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300">
+
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Buy this!</button>
+    </form>
+    {% else %}
+    <div>
+        <h3><del>{{ item.name }}</del> <font color="red">SOLD</font></h3>
+        <p><del>Price: ₹{{ item.price }}</del></p>
+        <del><p>Sold by: <a href="{% url 'user_info' user.username %}">{{ user.username }}</a></p></del>
+        <img id="soldimg" src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300">
+
+    </div>
+    {% endif %}
+    <style>
+        #soldimg {
+    -webkit-filter: grayscale(100%);
+       -moz-filter: grayscale(100%);
+         -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+            filter: grayscale(100%); 
+}
+    </style>
+    <a href="{% url 'shop' %}">Back to shop</a><br>
+{% endblock %}

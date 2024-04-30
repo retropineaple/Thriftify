@@ -1,0 +1,31 @@
+{% extends "master.html" %}
+
+
+{% block title %}
+    <title>Your Orders</title>
+{% endblock %}
+
+
+{% block content %}
+    <h1>Your Orders</h1>
+    <ul>
+    {% for order in user_orders %}
+    {% if order.status == "pending" %}
+        <li>
+            Order ID: {{ order.id }}, 
+            Item: <a href="{% url 'product_detail' order.item.id %}">{{ order.item.name }}</a>,
+            Status: {{ order.status }},
+        </li>
+    {% else %}
+        <li>
+            Order ID: {{ order.id }}, 
+            Item: <a href="{% url 'product_detail' order.item.id %}">{{ order.item.name }}</a>,
+            Status: {{ order.status }},
+            Message from the seller: {{ order.comment }}
+        </li>
+    {% endif %}
+    {% empty %}
+        <li>No orders found.</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

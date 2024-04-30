@@ -1,0 +1,14 @@
+{% extends "master.html" %}
+
+
+{% block title %}
+    <title>Order Success</title>
+{% endblock %}
+
+
+{% block content %}
+    <h1>Order Request Sent Successfully!</h1>
+    <p>The seller has been notified!</p>
+    <p>Order ID: {{ order_id }}</p>
+    <p>Keep an eye on <a href="{% url 'your_orders' %}">Your Orders</a> for updates!</p>
+{% endblock %}

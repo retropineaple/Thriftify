@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+
+
+{% block title %}
+    <title>Sell Item</title>
+{% endblock %}
+
+
+{% block content %}
+    <h2>Sell Item</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <a href="{% url 'home' %}">Home</a><br>
+{% endblock %}

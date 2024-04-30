@@ -1,0 +1,57 @@
+{% extends "master.html" %}
+
+
+{% block title %}
+    <title>Shop</title>
+{% endblock %}
+
+
+{% block content %}
+    <h2>Shop</h2>
+    <!-- Search form -->
+<form method="get" action="{% url 'shop' %}">
+    <input type="text" name="q" placeholder="Search for an item" value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+
+<!-- Availability filter -->
+<form method="get" action="{% url 'shop' %}">
+    <input type="hidden" name="q" value="{{ query }}">
+    <select name="availability">
+        <option value="" {% if not availability %} selected {% endif %}>All</option>
+        <option value="available" {% if availability == 'available' %} selected {% endif %}>Available</option>
+        <option value="sold" {% if availability == 'sold' %} selected {% endif %}>Sold</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+    {% for item in items %}
+    {% if item.status == "available" %}
+    <div>
+        <h3><a href="{% url 'product_detail' item.id %}">{{ item.name }}</a></h3>
+        <p>Price: ₹{{ item.price }}</p>
+        <p>Sold by: {{ item.seller.username }}</p>
+        <img src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300">
+
+    </div>
+    {% else %}
+    <div>
+        <h3><del><a href="{% url 'product_detail' item.id %}">{{ item.name }}</a></del> <font color="red">SOLD</font></h3>
+        <p><del>Price: ₹{{ item.price }}</del></p>
+        <p><del>Sold by: {{ item.seller.username }}</del></p>
+        <img id="soldimg" src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300">
+
+    </div>
+    {% endif %}
+    {% empty %}
+        <li>We couldn't find anything. Try searching for something else</li>
+    {% endfor %}
+    <style>
+        #soldimg {
+    -webkit-filter: grayscale(100%);
+       -moz-filter: grayscale(100%);
+         -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+            filter: grayscale(100%); 
+}
+    </style>
+{% endblock %}
