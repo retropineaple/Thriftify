@@ -6,8 +6,7 @@
 
 
 {% block content %}
-    <h1>User Info</h1>
-    <h2>{{ user_profile.user.username }}</h2>
+    <h2>@{{ user_profile.user.username }}</h2>
     <p>Name: {{ user_profile.name }}</p>
     <p>Email: {{ user_profile.email }}</p>
     <p>Phone Number: {{ user_profile.phone_number }}</p>
@@ -15,9 +14,20 @@
     <h3>Items Being Sold:</h3>
     <ul>
     {% for item in user_items %}
-        <li>{{ item.name }} - Price: {{ item.price }}</li>
+        <li><a href="{% url 'product_detail' item.id %}">{{ item.name }}</a> - Price: {{ item.price }} - {{ item.status }}</li>
     {% empty %}
         <li>No items being sold.</li>
     {% endfor %}
     </ul>
+    <div class="footer">
+        <p>User Info</p>
+    </div>
+    <style>
+        p {
+            font-family: "Sono";
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
 {% endblock %}

@@ -7,17 +7,24 @@
 
 
 {% block content %}
-    <h1>Received Orders</h1>
-    <ul>
+    <table style="width:100%">
+        <tr>
+        <th>Order ID</th>
+        <th>Buyer</th>
+        <th>Item</th>
+        <th>Status</th>
+        <th>Item Availability</th>
+        <th></th>
+        </tr>
     {% for order in orders %}
     {% if order.status == "pending" and order.item.status == "available" %}
-        <li>
-            Order ID: {{ order.id }}, 
-            Buyer: {{ order.buyer.username }}, 
-            Item: {{ order.item.name }}
-            Status: {{ order.status }}
-            Item Availability: {{ order.item.status }}
-            <form method="post" action="{% url 'accept_order' order.id %}">
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.buyer.username }}</td>
+            <td>{{ order.item.name }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.item.status }} &nbsp;</td>
+            <td><form method="post" action="{% url 'accept_order' order.id %}">
                 {% csrf_token %}
                 <p>Comment:</p>
                 <textarea name="comment" rows="4" cols="50"></textarea><br>
@@ -27,32 +34,44 @@
                 {% csrf_token %}
                 <button type="submit">Decline</button>
             </form>
-        </li>
+        </td>
+        </tr>
     {% elif order.status == "pending" and order.item.status == "sold" %}
-        <li>
-            Order ID: {{ order.id }}, 
-            Buyer: {{ order.buyer.username }}, 
-            Item: <a href="{% url 'product_detail' order.item.id %}">{{ order.item.name }}</a>
-            Status: {{ order.status }}
-            Item Availability: {{ order.item.status }}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.buyer.username }}</td>
+            <td>{{ order.item.name }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.item.status }}</td>
             <form method="post" action="{% url 'decline_order' order.id %}">
                 {% csrf_token %}
                 <p>Comment:</p>
                 <textarea name="comment" rows="4" cols="50"></textarea><br>
                 <button type="submit">Decline</button>
             </form>
-        </li>
+        </tr>
     {% else %}
-        <li>
-            Order ID: {{ order.id }}, 
-            Buyer: {{ order.buyer.username }}, 
-            Item: <a href="{% url 'product_detail' order.item.id %}">{{ order.item.name }}</a>
-            Status: {{ order.status }}
-            Item Availability: {{ order.item.status }}
-        </li>
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.buyer.username }}</td>
+            <td>{{ order.item.name }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.item.status }}</td>
+        </tr>
     {% endif %}
     {% empty %}
-        <li>No received orders.</li>
+        No received orders.
     {% endfor %}
-    </ul>
+    </table>
+    <div class="footer">
+        <p>Received Orders</p>
+    </div>
+    <style>
+        p {
+            font-family: "Sono";
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
 {% endblock %}

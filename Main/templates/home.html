@@ -7,16 +7,34 @@
 
 
 {% block content %}
-    <h2>Welcome to our Thriftify!</h2>
-    <p>This is a place for the students of IIT Palakkad to buy and sell used items.</p>
     {% if user.is_authenticated %}
-        <p>{{ greeting }} {{ user.userprofile.name }}!</p>
-        <a href="{% url 'account' %}">My Account</a><br>
-        <a href="{% url 'sell' %}">Sell an item</a><br>
-        <a href="{% url 'shop' %}">Shop</a><br>
-        <a href="{% url 'logout' %}">Logout</a>
+        <div class="links">
+            <a href="{% url 'account' %}">My Account </a> <a> ⬤ </a>
+            <a href="{% url 'sell' %}"> Sell an<br> item </a> <a> ⬤ </a>
+            <a href="{% url 'shop' %}" class="shoplink"> Shop </a> <a> ⬤ </a>
+            <a href="{% url 'logout' %}"> Logout</a>
+        </div>
     {% else %}
-        <p>You are not logged in.</p>
-        <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a>
+    <div class="links">
+        <a href="{% url 'login' %}">Login </a> <a> ⬤ </a> <a href="{% url 'signup' %}"> Sign Up</a>
+    </div>
     {% endif %}
+
+    <div class="footer">
+        {% if user.is_authenticated %}
+        <p>{{ greeting }} {{ user.userprofile.name }}!</p>
+        {% else %}
+        <p>A place for the students of IIT Palakkad to buy and sell used items.</p>
+        {% endif %}
+      </div>
+
+
+    <style>
+        p {
+            font-family: "Sono";
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
 {% endblock %}

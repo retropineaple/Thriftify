@@ -7,15 +7,28 @@
 
 
 {% block content %}
-    <h2>Account Details</h2>
     <p><strong>Name:</strong> {{ name }}</p>
     <p><strong>Username:</strong> {{ user.username }}</p>
     <p><strong>Email:</strong> {{ user.userprofile.email }}</p>
     <p><strong>Phone Number:</strong> {{ user.userprofile.phone_number }}</p>
-    <a href="{% url 'update_profile' %}">Click Here To Update Profile</a><br>
-    <a href="{% url 'change_password' %}">Click Here To Change Password</a><br>
+    <div class="links">
+    <a href="{% url 'update_profile' %}">Update Profile</a><a> ⬤ </a>
+    <a href="{% url 'change_password' %}">Change Password</a>
+    <a href="{% url 'received_orders' %}">Received Orders</a><a> ⬤ </a>
+    <a href="{% url 'your_items' %}">Your Items</a><br>
+    <a href="{% url 'your_orders' %}">Your Orders</a><a> ⬤ </a>
     <a href="{% url 'home' %}">Home</a>
-    <a href="{% url 'your_items' %}">Your Items</a>
-    <a href="{% url 'your_orders' %}">Your Orders</a>
-    <a href="{% url 'received_orders' %}">Received Orders</a>
+</div>
+    <div class="footer">
+        <p>Account Details</p>
+    </div>
+
+    <style>
+        p {
+            font-family: "Sono";
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
 {% endblock %}

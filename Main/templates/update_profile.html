@@ -7,10 +7,20 @@
 
 
 {% block content %}
-    <h2>Update Profile</h2>
-    <form method="post">
+    <center><form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Update</button>
-    </form>
+    </form></center>
+    <div class="footer">
+        <p>Update Profile</p>
+    </div>
+    <style>
+        p {
+            font-family: "Sono";
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
 {% endblock %}

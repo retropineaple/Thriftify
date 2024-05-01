@@ -7,25 +7,39 @@
 
 
 {% block content %}
-    <h1>Your Orders</h1>
-    <ul>
+    <table style="width:100%">
+        <tr><th>Order ID</th>
+            <th>Item</th>
+            <th>Status</th>
+            <th>Message from seller</th></tr>
     {% for order in user_orders %}
     {% if order.status == "pending" %}
-        <li>
-            Order ID: {{ order.id }}, 
-            Item: <a href="{% url 'product_detail' order.item.id %}">{{ order.item.name }}</a>,
-            Status: {{ order.status }},
-        </li>
+        <tr>
+            <td>{{ order.id }}</td>
+            <td><a href="{% url 'product_detail' order.item.id %}">{{ order.item.name }}</a></td>
+            <td>{{ order.status }}</td>
+        </tr>
     {% else %}
-        <li>
-            Order ID: {{ order.id }}, 
-            Item: <a href="{% url 'product_detail' order.item.id %}">{{ order.item.name }}</a>,
-            Status: {{ order.status }},
-            Message from the seller: {{ order.comment }}
-        </li>
+        <tr>
+            <td>{{ order.id }}</td>
+            <td><a href="{% url 'product_detail' order.item.id %}">{{ order.item.name }}</a></td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.comment }}</td>>
+        </tr>
     {% endif %}
     {% empty %}
-        <li>No orders found.</li>
+        No orders found.
     {% endfor %}
-    </ul>
+    </table>
+    <div class="footer">
+        <p>Your Orders</p>
+    </div>
+    <style>
+        p {
+            font-family: "Sono";
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
 {% endblock %}

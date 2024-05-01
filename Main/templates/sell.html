@@ -7,11 +7,21 @@
 
 
 {% block content %}
-    <h2>Sell Item</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
     </form>
     <a href="{% url 'home' %}">Home</a><br>
+    <div class="footer">
+        <p>Sell Item</p>
+    </div>
+    <style>
+        p {
+            font-family: "Sono";
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
 {% endblock %}

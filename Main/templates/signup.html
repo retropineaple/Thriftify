@@ -7,11 +7,21 @@
 
 
 {% block content %}
-    <h2>Sign Up</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Sign Up</button>
     </form>
-    <p>Have an account already? <a href="{% url 'login' %}">Log In</a></p>
+    <center><p>Have an account already? <a href="{% url 'login' %}">Log In</a></p></center>
+    <div class="footer">
+        <p>Signup</p>
+    </div>
+    <style>
+        p {
+            font-family: "Sono";
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
 {% endblock %}

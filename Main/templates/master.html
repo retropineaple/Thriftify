@@ -2,11 +2,104 @@
 <html>
 <head>
   <title>{% block title %}{% endblock %}</title>
+  <link href='https://fonts.googleapis.com/css?family=Space Mono|Montserrat|Poppins|Sono' rel='stylesheet'>
 </head>
-<body>
+<body style="background-color: #ebe9e1; color:#e43d12; font-family: 'Montserrat'">
+
+  <div class="header">
+    <a href="{% url 'home' %}" class="logo">THRIFTIFY</a>
+  </div>
+  <hr style="border-top: 4px solid #ffa2b6; margin: 0; margin-left: 20px; margin-right: 20px;">
 
 {% block content %}
 {% endblock %}
+
+
+<style>
+  .header {
+  overflow: hidden;
+  padding: 20px 10px;
+  text-align: center;
+  }
+  .header a {
+  color: #e43d12;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 50px;
+  border-radius: 4px;
+}
+  .header a.logo {
+  font-size: 100px;
+  font-weight: bold;
+  font-family: "Space Mono";
+  display: inline-block;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #ffa2b6;
+  color: white;
+  text-align: left;
+}
+.footer p {
+  text-align: left;
+  padding: 0px 10px;
+  font-size: 25px;
+  color: #e43d12;
+  margin-left: 20px;
+}
+.links {
+    text-align: center;
+    height: 100px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.links a{
+    text-decoration: none;
+    color: #e43d12;
+    font-family: 'Poppins';
+    text-align: center;
+    font-size: 70px;
+    font-weight: bold;
+}
+input {
+          width: 50%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+          border: none;
+          border-bottom: 2px solid #e43d12;
+          background-color: #ebe9e1;
+          display: block;
+          margin-right: auto;
+          margin-left: auto;
+        }
+        button {
+          background-color: #ffa2b6; 
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          transition-duration: 0.4s;
+          cursor: pointer;
+          display: block;
+          margin-right: auto;
+          margin-left: auto;
+}
+button:hover {background-color: #e43d12;}
+</style>
 
 </body>
 </html>

@@ -17,15 +17,18 @@
             }
         }
     </script>
-    <h1>Your Items</h1>
-    <ul>
+    <table style="width:100%">
+        <tr><th>Item</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th></th></tr>
     {% for item in seller_items %}
-        <li>
-            <a href="{% url 'product_detail' item.id %}">{{ item.name }}</a>
-            <p>Price: {{ item.price }}</p>
-            <p>Description: {{ item.description }}</p>
-            <button onclick="toggleForm({{ item.id }})">Update</button>
-            <form id="update-form-{{ item.id }}" method="post" action="{% url 'update_item' item.id %}" style="display: none;">
+            <tr>
+            <td><a href="{% url 'product_detail' item.id %}">{{ item.name }}</a></td>
+        <td><p>{{ item.price }}</p></td>
+        <td><p>{{ item.description }}</p></td>
+        <td><button onclick="toggleForm({{ item.id }})">Update</button>
+        <td><form id="update-form-{{ item.id }}" method="post" action="{% url 'update_item' item.id %}" style="display: none;">
                 {% csrf_token %}
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" value="{{ item.name }}"><br>
@@ -34,10 +37,20 @@
                 <label for="description">Description:</label>
                 <textarea id="description" name="description">{{ item.description }}</textarea><br>
                 <button type="submit">Update</button>
-            </form>
-        </li>
+            </form></td></tr>
     {% empty %}
-        <li>No items found.</li>
+        No items found.
     {% endfor %}
-    </ul>
+    </table>
+    <div class="footer">
+        <p>Your Items</p>
+    </div>
+    <style>
+        p {
+            font-family: "Sono";
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
 {% endblock %}
