@@ -21,12 +21,14 @@
         <tr><th>Item</th>
             <th>Price</th>
             <th>Description</th>
+            <th>Stock</th>
             <th></th></tr>
     {% for item in seller_items %}
             <tr>
             <td><a href="{% url 'product_detail' item.id %}">{{ item.name }}</a></td>
         <td><p>{{ item.price }}</p></td>
         <td><p>{{ item.description }}</p></td>
+        <th><p>{{ item.status }}</p></th>
         <td><button onclick="toggleForm({{ item.id }})">Update</button>
         <td><form id="update-form-{{ item.id }}" method="post" action="{% url 'update_item' item.id %}" style="display: none;">
                 {% csrf_token %}

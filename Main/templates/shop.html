@@ -11,24 +11,24 @@
         <input type="text" name="q" placeholder="Search for an item" value="{{ query }}">
         <button type="submit">Search</button>
     </form>
-    <form method="get" action="{% url 'shop' %}">
+    <center><form method="get" action="{% url 'shop' %}">
         <input type="hidden" name="q" value="{{ query }}">
         <select name="availability">
             <option value="" {% if not availability %} selected {% endif %}>All</option>
             <option value="available" {% if availability == 'available' %} selected {% endif %}>Available</option>
             <option value="sold" {% if availability == 'sold' %} selected {% endif %}>Sold</option>
         </select>
-        <button type="submit">Filter</button>
+        <button type="submit">Filter</button></center>
     </form>
     {% for item in items %}
     <table style="width:100%">
-    {% if item.status == "available" %}
+    {% if item.status == "available" and item.seller.username != user.username %}
     <tr>
         <td><h3><a href="{% url 'product_detail' item.id %}">{{ item.name }}</a></h3><br><img src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300"></td>
         <td><p>Price: ₹{{ item.price }}</p></td>
         <td><p>Sold by: <a href="{% url 'user_info' item.seller.username %}">{{ item.seller.username }}</a></p></td>
     </tr>
-    {% else %}
+    {% elif item.status == "sold" and item.seller.username != user.username %}
     <tr>
         <td><h3><del><a href="{% url 'product_detail' item.id %}">{{ item.name }}</a></del> <font color="red">SOLD</font></h3><br><img src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300" id="soldimg"></td>
         <td><p>Price: ₹{{ item.price }}</p></td>
