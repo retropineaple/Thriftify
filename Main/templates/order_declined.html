@@ -9,6 +9,7 @@
 {% block content %}
     <h1>Order Declined</h1>
     <p>You have declined the order.</p>
+    <a href="{{request.META.HTTP_REFERER}}">Go back</a>
     <div class="footer">
         <p>Done!</p>
     </div>

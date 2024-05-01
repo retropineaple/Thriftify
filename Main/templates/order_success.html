@@ -11,6 +11,7 @@
     <p>The seller has been notified!</p>
     <p>Order ID: {{ order_id }}</p>
     <p>Keep an eye on <a href="{% url 'your_orders' %}">Your Orders</a> for updates!</p>
+    <a href="{{request.META.HTTP_REFERER}}">Go back</a>
     <div class="footer">
         <p>Success!</p>
     </div>

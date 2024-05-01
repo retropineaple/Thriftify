@@ -9,6 +9,7 @@
 {% block content %}
     <h1>Order Accepted</h1>
     <p>You have successfully accepted the order.</p>
+    <a href="{{request.META.HTTP_REFERER}}">Go back</a>
     <div class="footer">
         <p>Success!</p>
     </div>

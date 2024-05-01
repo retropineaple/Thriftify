@@ -9,4 +9,5 @@
 {% block content %}
     <h1>Unauthorized Access</h1>
     <p>You are not authorized to perform this action.</p>
+    <a href="{{request.META.HTTP_REFERER}}">Go back</a>
 {% endblock %}

@@ -6,19 +6,20 @@
 
 
 {% block content %}
-    <h2>@{{ user_profile.user.username }}</h2>
+    <h2><p>@{{ user_profile.user.username }}</p></h2>
     <p>Name: {{ user_profile.name }}</p>
     <p>Email: {{ user_profile.email }}</p>
     <p>Phone Number: {{ user_profile.phone_number }}</p>
     
-    <h3>Items Being Sold:</h3>
-    <ul>
+    <h3><p>Items Being Sold:</p></h3>
+    <center><ul type="none">
     {% for item in user_items %}
         <li><a href="{% url 'product_detail' item.id %}">{{ item.name }}</a> - Price: {{ item.price }} - {{ item.status }}</li>
     {% empty %}
-        <li>No items being sold.</li>
+        <li>This user has not sold any items.</li>
     {% endfor %}
-    </ul>
+    </ul></center>
+    <a href="{{request.META.HTTP_REFERER}}">Go back</a>
     <div class="footer">
         <p>User Info</p>
     </div>
