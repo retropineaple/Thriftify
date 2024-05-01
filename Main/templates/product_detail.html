@@ -2,18 +2,17 @@
 
 
 {% block title %}
-    <title>Shop</title>
+    Shop
 {% endblock %}
 
 
 {% block content %}
     {% if item.status == "available" %}
     <div>
-        <h3>{{ item.name }}</h3>
         <p>Price: ₹{{ item.price }}</p>
-        <p>Sold by: <a href="{% url 'user_info' user.username %}">{{ user.username }}</a></p>
+        <p>Sold by: <a href="{% url 'user_info' item.seller.username %}">{{ item.seller.username }}</a></p>
         <img src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300">
-
+        <p>{{ item.description }}</p>
     </div>
     <form method="post">
         {% csrf_token %}
@@ -23,9 +22,9 @@
     <div>
         <h3><del>{{ item.name }}</del> <font color="red">SOLD</font></h3>
         <p><del>Price: ₹{{ item.price }}</del></p>
-        <del><p>Sold by: <a href="{% url 'user_info' user.username %}">{{ user.username }}</a></p></del>
+        <p>Sold by: <a href="{% url 'user_info' item.seller.username %}">{{ item.seller.username }}</a></p>
         <img id="soldimg" src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300">
-
+        <p>Description: {{ item.description }}</p>
     </div>
     {% endif %}
     <style>
