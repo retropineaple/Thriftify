@@ -7,7 +7,7 @@
 
 
 {% block content %}
-    {% if item.status == "available" %}
+    {% if item.status == "available" and item.seller.username != user.username %}
     <div>
         <center><img src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300"></center>
         <h3><p>{{ item.name }}</p></h3>
@@ -19,6 +19,14 @@
         {% csrf_token %}
         <button type="submit">Buy this!</button>
     </form>
+    {% elif item.status == "available" and item.seller.username == user.username %}
+    <div>
+        <center><img src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300"></center>
+        <h3><p>{{ item.name }}</p></h3>
+        <p>Price: ₹{{ item.price }}</p>
+        <p>Sold by: <a href="{% url 'user_info' item.seller.username %}">{{ item.seller.username }}</a></p>
+        <p>{{ item.description }}</p>
+    </div>
     {% else %}
     <div>
         <center><img id="soldimg" src="{{ item.picture.url }}" alt="{{ item.name }} picture" height="300"></center>
