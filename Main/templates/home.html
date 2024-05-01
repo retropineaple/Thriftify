@@ -16,7 +16,8 @@
         </div>
     {% else %}
     <div class="links">
-        <a href="{% url 'login' %}">Login </a> <a> ⬤ </a> <a href="{% url 'signup' %}"> Sign Up</a>
+        <a href="{% url 'login' %}">Login </a> <a> ⬤ </a> <a href="{% url 'signup' %}"> Sign Up</a><br>
+        <a href="{% url 'shop' %}" class="shoplink"> View Shop </a>
     </div>
     {% endif %}
 

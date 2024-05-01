@@ -20,6 +20,7 @@
         </select>
         <button type="submit">Filter</button></center>
     </form>
+    <a href="{{request.META.HTTP_REFERER}}">Go back</a>
     {% for item in items %}
     <table style="width:100%">
     {% if item.status == "available" and item.seller.username != user.username %}
@@ -41,6 +42,12 @@
         <li>We couldn't find anything. Try searching for something else</li>
     {% endfor %}
     <style>
+        p {
+            font-family: "Sono";
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
         #soldimg {
     -webkit-filter: grayscale(100%);
        -moz-filter: grayscale(100%);
@@ -49,16 +56,7 @@
             filter: grayscale(100%); 
 }
     </style>
-    <a href="{{request.META.HTTP_REFERER}}">Go back</a><br><br><br><br><br>
     <div class="footer">
         <p>Shop</p>
     </div>
-    <style>
-        p {
-            font-family: "Sono";
-            text-align: center;
-            font-weight: bold;
-            font-size: 20px;
-        }
-    </style>
 {% endblock %}

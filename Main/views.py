@@ -110,7 +110,6 @@ def sell(request):
     return render(request, "sell.html", {"form": form})
 
 
-@login_required
 def shop(request):
     items = Item.objects.all()
     query = request.GET.get("q")
@@ -216,7 +215,6 @@ def update_item(request, item_id):
     return render(request, "update_item.html", {"form": form})
 
 
-@login_required
 def user_info(request, username):
     user_profile = get_object_or_404(UserProfile, user__username=username)
     user_items = Item.objects.filter(seller=user_profile.user)

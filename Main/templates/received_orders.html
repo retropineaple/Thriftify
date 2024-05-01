@@ -43,12 +43,12 @@
             <td>{{ order.item.name }}</td>
             <td>{{ order.status }}</td>
             <td>{{ order.item.status }}</td>
-            <form method="post" action="{% url 'decline_order' order.id %}">
+            <td><form method="post" action="{% url 'decline_order' order.id %}">
                 {% csrf_token %}
                 <p>Comment:</p>
                 <textarea name="comment" rows="4" cols="50"></textarea><br>
                 <button type="submit">Decline</button>
-            </form>
+            </form></td>
         </tr>
     {% else %}
         <tr>
@@ -63,7 +63,7 @@
         No received orders.
     {% endfor %}
     </table>
-    <a href="{{request.META.HTTP_REFERER}}">Go back</a>
+    <a href="{{request.META.HTTP_REFERER}}">Go back</a><br><br><br><br><br><br><br><br>
     <div class="footer">
         <p>Received Orders</p>
     </div>
